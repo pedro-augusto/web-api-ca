@@ -1,0 +1,58 @@
+import React, { useState } from "react";
+import Header from "../headerMovieList";
+import FilterCard from "../filterMoviesCard";
+import MovieList from "../movieList";
+import Grid from "@mui/material/Grid";
+
+function MovieListPageTemplate({ movies, title, action, children }) {
+  const [nameFilter, setNameFilter] = useState("");
+  const [genreFilter, setGenreFilter] = useState("0");
+  const [yearFilter, setYearFilter] = useState("");
+  const genreId = Number(genreFilter);
+
+  let displayedMovies = movies
+    .filter((m) => {
+      return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
+    })
+    .filter((m) => {
+      return genreId > 0 ? m.genre_ids.includes(genreId) : true;
+    })
+    .filter((m) => {
+      return yearFilter ? m.release_date?.startsWith(yearFilter) : true
+    })
+
+
+  const handleChange = (type, value) => {
+    if (type === "name") setNameFilter(value);
+    else if (type === "genre") setGenreFilter(value);
+    else if (type === "year") setYearFilter(value);
+  };
+
+  return (
+    <Grid container>
+      <Grid size={12}>
+        <Header title={title} />
+      </Grid>
+      {children ? (
+        children
+      ) : null}
+
+      <Grid container sx={{ flex: "1 1 500px" }}>
+        <Grid
+          key="find"
+          size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
+          sx={{ padding: "20px" }}
+        >
+          <FilterCard
+            onUserInput={handleChange}
+            titleFilter={nameFilter}
+            genreFilter={genreFilter}
+            yearFilter={yearFilter}
+          />
+        </Grid>
+        <MovieList action={action} movies={displayedMovies}></MovieList>
+      </Grid>
+    </Grid>
+  );
+}
+export default MovieListPageTemplate;
