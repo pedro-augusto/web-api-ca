@@ -1,6 +1,6 @@
 export const getMovies = () => {
   return fetch(
-    `http://localhost:8090/api/movies/discover`
+    `http://localhost:8080/api/movies/discover`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
