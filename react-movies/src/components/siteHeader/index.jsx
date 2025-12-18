@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { AuthContext } from "../../contexts/authContext";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -20,20 +21,30 @@ const SiteHeader = () => {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const context = useContext(AuthContext);
   
   const navigate = useNavigate();
 
-  const menuOptions = [
+  const guestOptions = [
+    { label: "Home", path: "/" },
+    { label: "Trending Today", path: "/movies/trending-today" },
+    { label: "Login", path: "/user/login" },
+    { label: "Register", path: "/user/register" },
+  ];
+
+  const userOptions = [
     { label: "Home", path: "/" },
     { label: "Trending Today", path: "/movies/trending-today" },
     { label: "Favorites", path: "/movies/favorites" },
-    { label: "Now Playing", path: "/movies/now-playing" },
-    { label: "Upcoming", path: "/movies/upcoming" },
-    { label: "Top Rated", path: "/movies/top-rated" },
-    { label: "My Must Watch List", path: "/movies/my-must-watch" },
-    { label: "Register", path: "/user/register" },
-    { label: "Login", path: "/user/login" },
+    { label: "My Must Watch", path: "/movies/my-must-watch" }
   ];
+
+  if(context.isAuthenticated){
+    var menuOptions = userOptions  
+  } else {
+    menuOptions = guestOptions
+  }
+
 
   const handleMenuSelect = (pageURL) => {
     setAnchorEl(null);
@@ -88,6 +99,9 @@ const SiteHeader = () => {
                       {opt.label}
                     </MenuItem>
                   ))}
+                  {context.isAuthenticated ? (
+                    <MenuItem onClick={() => context.signout() }>Logout</MenuItem>
+                  ): null }
                 </Menu>
               </>
             ) : (
@@ -101,6 +115,9 @@ const SiteHeader = () => {
                     {opt.label}
                   </Button>
                 ))}
+                {context.isAuthenticated ? (
+                    <Button color="inherit" onClick={() => context.signout() }>Logout</Button>
+                  ): null }
               </>
             )}
         </Toolbar>

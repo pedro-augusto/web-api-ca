@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Navigate } from "react-router";
 import { AuthContext } from '../contexts/authContext';
 
-const registerPage = () => {
+const RegisterPage = () => {
   const context = useContext(AuthContext)
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -42,4 +42,4 @@ const registerPage = () => {
   );
 };
 
-export default registerPage;
+export default RegisterPage;
