@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const InteractionSchema = new Schema({
-  interactionId: { type: String, unique: true, required: true},
   movieId: {type: Number, required: true},
-  interactionDate: Date,
-  interactionType: {type: String, enum: ["Must Watch","Favourite"]},
+  username: { type: String, required: true },
+  interactionDate: { type: Date, default: Date.now },
+  interactionType: {type: String, enum: ["Must Watch","Favourite"], required: true},
 });
 
 export default mongoose.model('Interaction', InteractionSchema);
