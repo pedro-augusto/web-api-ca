@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getMovies, getSearchResults } from "../api/tmdb-api";
 import PageTemplate from "../components/templateMovieListPage";
@@ -12,6 +12,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { AuthContext } from "../contexts/AuthContext";
 
 const HomePage = () => {
 
@@ -20,6 +21,7 @@ const HomePage = () => {
   const isSearching = submittedKeyword.trim().length > 0;
   const [page, setPage] = React.useState(1)
   const [sortOption, setSortOption] = useState("popularity.desc");
+  const { isAuthenticated } = useContext(AuthContext);
 
   let moviesToDisplay;
 
@@ -72,7 +74,9 @@ const HomePage = () => {
           title={isSearching ? `Results for "${submittedKeyword}"` : "Discover Movies"}
           movies={movies}
           action={(movie) => {
-            return <AddToFavoritesIcon movie={movie} />
+            if(isAuthenticated){
+              return <AddToFavoritesIcon movie={movie} />
+            }
           }}
         >
 

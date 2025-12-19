@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
 import { getMovieRecommendations } from "../../api/tmdb-api";
 import { excerpt } from "../../util";
@@ -8,9 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 import Spinner from '../spinner'
 import AddToMustWatchIcon from "../cardIcons/addToMustWatch";
 import MovieList from "../movieList";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function MovieRecommendations({ movie }) {
-    const { data, error, isPending, isError } = useQuery({
+
+  const { isAuthenticated } = useContext(AuthContext);
+  const { data, error, isPending, isError } = useQuery({
     queryKey: ['recommendations', { id: movie.id }],
     queryFn: getMovieRecommendations,
   });
@@ -29,10 +32,15 @@ export default function MovieRecommendations({ movie }) {
     <>
     <Typography variant="h4" component="h3" textAlign="center" my={2}>You May Also Like</Typography>
     <Grid container sx={{flex: "1 1 500px"}}>
-    <MovieList action={(movie) => {
-          return <AddToMustWatchIcon movie={movie} />
-        }} movies={recommendations}></MovieList>
-        </Grid>
+      <MovieList 
+        action={(movie) => {
+          if(isAuthenticated){
+            return <AddToMustWatchIcon movie={movie} />
+          }
+        }} 
+        movies={recommendations}>
+      </MovieList>
+    </Grid>
     </>
   );
 }

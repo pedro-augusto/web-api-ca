@@ -28,6 +28,9 @@ const SiteHeader = () => {
   const guestOptions = [
     { label: "Home", path: "/" },
     { label: "Trending Today", path: "/movies/trending-today" },
+    { label: "Now Playing", path: "/movies/now-playing" },
+    { label: "Upcoming", path: "/movies/upcoming" },
+    { label: "Top Rated", path: "/movies/top-rated" },
     { label: "Login", path: "/user/login" },
     { label: "Register", path: "/user/register" },
   ];
@@ -35,7 +38,10 @@ const SiteHeader = () => {
   const userOptions = [
     { label: "Home", path: "/" },
     { label: "Trending Today", path: "/movies/trending-today" },
-    { label: "Favorites", path: "/movies/favorites" },
+    { label: "Now Playing", path: "/movies/now-playing" },
+    { label: "Upcoming", path: "/movies/upcoming" },
+    { label: "Top Rated", path: "/movies/top-rated" },
+    { label: "Favourites", path: "/movies/favorites" },
     { label: "My Must Watch", path: "/movies/my-must-watch" }
   ];
 

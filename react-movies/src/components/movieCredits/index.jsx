@@ -13,7 +13,6 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../spinner";
-import AddToMustWatchIcon from "../cardIcons/addToMustWatch";
 import MovieList from "../movieList";
 import CreditsList from "../creditsList";
 
