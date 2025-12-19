@@ -23,4 +23,12 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+// Get user interactions
+router.get('/:id', async (req, res) => {
+    const interactions = await Interaction.find({
+        username: req.params.id,
+    });
+    res.status(200).json(interactions);
+});
+
 export default router;
