@@ -33,6 +33,10 @@ const MoviesContextProvider = (props) => {
     };
 
     loadInteractions();
+  } else {
+    setFavorites([]);
+    setMustWatch([]);
+    setMyReviews({});
   }
 }, [isAuthenticated, userName]);
 
