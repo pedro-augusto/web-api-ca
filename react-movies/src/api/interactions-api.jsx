@@ -12,9 +12,9 @@ export const addInteraction = async(data) => {
         return res.json();
 };
 
-export const deleteInteraction = async (id) => {
+export const removeInteraction = async (data) => {
     const res =  fetch(
-        `http://localhost:8080/api/interactions/${id}`,
+        `http://localhost:8080/api/interactions/${data.username}/${data.movieId}/${data.interactionType}`,
         {
             method: 'DELETE'
         }

@@ -12,15 +12,20 @@ router.post('/', async (req, res) => {
 });
 
 // delete an interaction
-router.delete('/:id', async (req, res) => {
-    const result = await Interaction.deleteOne({
-        _id: req.params.id,
-    });
-    if (result.deletedCount) {
-        res.status(204).json();
-    } else {
-        res.status(404).json({ code: 404, msg: 'Unable to find interaction' });
-    }
+router.delete('/:username/:movieId/:interactionType', async (req, res) => {
+  const { username, movieId, interactionType } = req.params;
+
+  const result = await Interaction.deleteOne({
+    username,
+    movieId,
+    interactionType,
+  });
+
+  if (result.deletedCount === 0) {
+    return res.status(404).json({ msg: "Interaction not found" });
+  }
+
+  res.status(204).end();
 });
 
 // Get user interactions
