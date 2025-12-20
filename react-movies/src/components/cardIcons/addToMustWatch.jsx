@@ -9,8 +9,9 @@ const AddToMustWatchIcon = ({ movie }) => {
   const context = useContext(MoviesContext);
   const { userName } = useContext(AuthContext); 
   const isFavorite = context.favorites.includes(movie.id);
+  const isMustWatch = context.mustWatch.includes(movie.id);
 
-  if (isFavorite) {
+  if (isFavorite || isMustWatch) {
     return null;
   }
 
