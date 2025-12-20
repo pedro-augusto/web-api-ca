@@ -9,6 +9,11 @@ import { AuthContext } from "../../contexts/authContext";
 const AddToFavoritesIcon = ({ movie }) => {
   const context = useContext(MoviesContext);
   const { userName } = useContext(AuthContext); 
+  const isFavorite = context.favorites.includes(movie.id);
+
+  if (isFavorite) {
+    return null;
+  }
 
   const handleAddToFavorites = (e) => {
     e.preventDefault();
