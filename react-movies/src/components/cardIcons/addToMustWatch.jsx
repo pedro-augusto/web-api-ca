@@ -1,13 +1,18 @@
 import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import IconButton from "@mui/material/IconButton";
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
 import {addInteraction} from "../../api/interactions-api";
 import { AuthContext } from "../../contexts/authContext";
 
 const AddToMustWatchIcon = ({ movie }) => {
   const context = useContext(MoviesContext);
   const { userName } = useContext(AuthContext); 
+  const isFavorite = context.favorites.includes(movie.id);
+
+  if (isFavorite) {
+    return null;
+  }
 
   const handleAddToMustWatch = (e) => {
     e.preventDefault();
@@ -22,7 +27,7 @@ const AddToMustWatchIcon = ({ movie }) => {
   
   return (
     <IconButton aria-label="add to must watch" onClick={handleAddToMustWatch}>
-      <PlaylistAddIcon color="primary" fontSize="large" />
+      <PlaylistAddCircleIcon color="primary" fontSize="large" />
     </IconButton>
   );
 };
