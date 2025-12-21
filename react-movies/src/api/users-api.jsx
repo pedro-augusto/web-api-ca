@@ -6,7 +6,14 @@ export const login = async (username, password) => {
         method: 'post',
         body: JSON.stringify({ username: username, password: password })
     });
-    return response.json();
+    
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.msg || "Login failed");
+    }
+
+    return data;
 };
 
 export const signup = async (username, password) => {
@@ -17,5 +24,12 @@ export const signup = async (username, password) => {
         method: 'post',
         body: JSON.stringify({ username: username, password: password })
     });
-    return response.json();
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.msg || "Registration failed");
+    }
+
+    return data;
 };

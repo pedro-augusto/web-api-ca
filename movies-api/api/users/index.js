@@ -31,7 +31,22 @@ router.post('/', asyncHandler(async (req, res) => {
 }));
 
 async function registerUser(req, res) {
-  const { password } = req.body;
+  const { username, password } = req.body;
+
+    if (!username || username.trim().length < 5) {
+    return res.status(400).json({
+      success: false,
+      msg: "Username must be at least 5 characters long.",
+    });
+  }
+
+  const existingUser = await User.findByUserName(username);
+  if (existingUser) {
+    return res.status(400).json({
+      success: false,
+      msg: "Username already exists.",
+    });
+  }
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 

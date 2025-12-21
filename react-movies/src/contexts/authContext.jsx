@@ -1,5 +1,5 @@
 import { useState, createContext } from "react";
-import { login, signup } from "../api/movies-api";
+import { login, signup } from "../api/users-api";
 
 export const AuthContext = createContext(null); //eslint-disable-line
 
